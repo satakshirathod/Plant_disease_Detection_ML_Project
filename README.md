@@ -1,0 +1,66 @@
+﻿📌 Project Description
+
+This project is a Plant Disease Detection System built using Deep Learning (PyTorch) and deployed as a Flask-based web application. The model is trained on a publicly available dataset from Kaggle to identify plant diseases from leaf images.
+
+The web application allows users to upload plant leaf images and get real-time predictions about the disease, helping farmers and users take early preventive measures.
+
+🚀 Features
+🌱 Detects plant diseases from leaf images
+🤖 Deep Learning model built using PyTorch
+🌐 Flask-based web application
+📷 Image upload and prediction system
+⚡ Fast and user-friendly interface
+📊 Trained on Kaggle dataset
+📂 Dataset
+
+The dataset used for training is sourced from Kaggle:
+
+Dataset Link: https://www.kaggle.com/code/imtkaggleteam/plant-diseases-detection-pytorch/input
+Contains multiple classes of plant diseases and healthy leaves
+Images are labeled for supervised learning
+🛠️ Tech Stack
+Frontend: HTML, CSS, JavaScript
+Backend: Flask (Python)
+Model: PyTorch
+Dataset: Kaggle Plant Disease Dataset
+⚙️ Installation & Setup
+1️⃣ Clone the repository
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+2️⃣ Create virtual environment
+python -m venv venv
+3️⃣ Activate environment
+Windows:
+venv\Scripts\activate
+Mac/Linux:
+source venv/bin/activate
+4️⃣ Install dependencies
+pip install -r requirements.txt
+5️⃣ Run the Flask app
+python app.py
+6️⃣ Open in browser
+http://127.0.0.1:5000/
+🧠 Model Details
+Built using Convolutional Neural Network (CNN)
+Implemented in PyTorch
+Trained on labeled plant leaf images
+Capable of classifying multiple plant diseases
+📸 How It Works
+User uploads a plant leaf image
+Image is preprocessed
+Model predicts the disease
+Result is displayed on the web interface
+📌 Future Improvements
+📱 Mobile app integration
+🌍 Deploy on cloud (AWS / Render / Heroku)
+📈 Improve accuracy with more data
+🧾 Add treatment suggestions for diseases
+🙌 Acknowledgements
+Kaggle for providing dataset
+Open-source community
+📬 Contact
+
+If you have any suggestions or feedback, feel free to connect!
+
+💡 Tip:
+Replace your-username/your-repo-name with your actual GitHub repo link before uploading.

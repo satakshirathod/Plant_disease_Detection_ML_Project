@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriVision Pro | Enterprise AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Professional Dark Palette */
+            --sidebar-bg: #0f172a; /* Midnight Blue/Black */
+            --sidebar-accent: #1e293b;
+            --primary-green: #22c55e;
+            --accent-gold: #fde047;
+            --sidebar-width: 380px;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        /* --- PROFESSIONAL SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            color: #f1f5f9;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 25px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 40px 30px;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo-area h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .logo-area span { color: var(--primary-green); }
+
+        .sidebar-content {
+            padding: 30px;
+            flex: 1;
+        }
+
+        /* Nav-style labels */
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .upload-card {
+            background: var(--sidebar-accent);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .upload-card:hover { border-color: var(--primary-green); }
+
+        .file-input-wrapper {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            font-size: 13px;
+            color: #94a3b8;
+            width: 100%;
+        }
+
+        .btn-scan {
+            background: var(--primary-green);
+            color: #052e16;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-scan:hover {
+            background: #4ade80;
+            transform: translateY(-1px);
+        }
+
+        /* Status Indicator */
+        .system-status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid var(--primary-green);
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 8px var(--primary-green);
+        }
+
+        .sidebar-footer {
+            padding: 30px;
+            background: #0b1120;
+            font-size: 12px;
+            color: #475569;
+        }
+
+        /* --- MAIN STAGE (Keeping your requested right side) --- */
+        .main-stage {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+        }
+
+        .result-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            width: 90%;
+            max-width: 900px;
+            padding: 40px;
+            border-radius: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        }
+
+        .img-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .img-container img { width: 100%; display: block; }
+
+        .scan-line {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--primary-green);
+            box-shadow: 0 0 15px var(--primary-green);
+            animation: scanning 3s infinite linear;
+        }
+
+        .data-panel { display: flex; flex-direction: column; justify-content: center; }
+
+        .label { font-size: 13px; text-transform: uppercase; color: #64748b; letter-spacing: 1px; font-weight: 500; }
+
+        .value { 
+            font-size: 34px; font-weight: 700; color: #0f172a; margin: 5px 0 20px 0; 
+        }
+
+        .conf-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .progress-bg { background: #e2e8f0; height: 8px; border-radius: 4px; margin-top: 10px; }
+        .progress-fill { background: var(--primary-green); height: 100%; border-radius: 4px; transition: 1s; }
+
+        @keyframes scanning {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-area">
+                <h1>Agri<span>Vision</span> Pro</h1>
+            </div>
+            <p style="font-size: 13px; color: #94a3b8; margin: 10px 0 0 0;">Biological Intelligence Engine</p>
+        </div>
+
+        <div class="sidebar-content">
+            <span class="section-label">Diagnostics Control</span>
+            
+            <div class="upload-card">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <div class="file-input-wrapper">
+                        <label style="display: block; font-size: 13px; margin-bottom: 10px; color: #cbd5e1;">Select Specimen Image</label>
+                        <input type="file" name="imagefile" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn-scan">
+                        <span>🔍</span> RUN SCAN
+                    </button>
+                </form>
+            </div>
+
+            <div class="system-status">
+                <div style="font-size: 13px; font-weight: 500; color: #f1f5f9; margin-bottom: 5px;">
+                    <span class="status-dot"></span> AI Engine Active
+                </div>
+                <p style="font-size: 11px; color: #94a3b8; margin: 0;">Connected to MobileNetV2 Core</p>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>Accuracy</span>
+                <span style="color: #fff;">79.0%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Version</span>
+                <span style="color: #fff;">v3.0.4</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-stage">
+        {% if prediction %}
+        <div class="result-card">
+            <div class="img-container">
+                <img src="{{ url_for('static', filename=image_path) }}">
+                <div class="scan-line"></div>
+            </div>
+            <div class="data-panel">
+                <div class="label">Analysis Outcome</div>
+                <div class="value">{{ prediction.replace('_', ' ') }}</div>
+                
+                <div class="conf-box">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="label">Confidence</span>
+                        <span style="font-weight: 600; color: #0f172a;">{{ confidence }}%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fill" style="width: {{ confidence }}%"></div>
+                    </div>
+                </div>
+                
+                <p style="color: #64748b; font-size: 14px; margin-top: 25px; line-height: 1.6;">
+                    The system has completed the neural analysis. Structural leaf patterns indicate a profile matching <b>{{ prediction }}</b>.
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <div style="text-align: center; color: #cbd5e1;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 20px; opacity: 0.5;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h3 style="font-weight: 500; color: #94a3b8;">Awaiting Specimen</h3>
+            <p style="font-size: 14px;">Upload an image to start the AI diagnostic sequence.</p>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
